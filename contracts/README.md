@@ -5,8 +5,9 @@
 | Name           | BitcoinNova |
 | Symbol         | BTCN |
 | Decimals       | 18 |
-| Total supply   | **21,000,000,000 BTCN**, fixed forever (all sent to the deployer wallet) |
-| Mint / Burn    | **None.** Nobody can create or destroy tokens |
+| Initial supply | **21,000,000,000 BTCN** (all sent to the deployer wallet) |
+| Mint           | Owner only, no maximum cap |
+| Burn           | Any holder can burn their own tokens (`burn`), or approved tokens (`burnFrom`) |
 | Compiler       | solc **0.5.16**, optimization **enabled, 200 runs** |
 
 ## Deploy with Remix + MetaMask
@@ -38,19 +39,19 @@ BscScan → your contract address → Contract → Verify & Publish:
 | `transferFrom(from, to, amount)` | approved spender | Move BTCN using an approval (used by DEXes, game contracts) |
 | `increaseAllowance` / `decreaseAllowance` | anyone | Safer way to change an approval |
 | `balanceOf`, `totalSupply`, `allowance`, `name`, `symbol`, `decimals`, `getOwner` | anyone | Read-only info |
-| `transferOwnership(addr)` | owner | Give the owner role to another wallet |
-| `renounceOwnership()` | owner | Remove the owner forever |
-
-The owner role currently has **no special powers over tokens** (no mint, no burn, no pause, no blacklist).
-It only exists because BEP20 explorers expect a `getOwner()`.
+| `mint(amount)` | **owner only** | Creates new BTCN to the owner wallet (no cap) |
+| `burn(amount)` | any holder | Destroys own BTCN, lowers total supply |
+| `burnFrom(account, amount)` | approved spender | Burns another wallet's BTCN using allowance |
+| `transferOwnership(addr)` | owner | Give the owner role (and mint power) to another wallet |
+| `renounceOwnership()` | owner | Remove the owner forever → `mint` is disabled permanently |
 
 Amounts are in the smallest unit: 1 BTCN = `1000000000000000000` (18 zeros).
 
 ## What this contract does NOT have (for apps & games)
 
 This is a plain currency token. Everything below must be built as **separate contracts or backend
-services** that use BTCN. Because this token has no mint, those contracts must be **funded with BTCN
-from your supply wallet** (they cannot create new tokens).
+services** that use BTCN. Only the owner wallet can mint, so game contracts must be **funded with BTCN
+from your supply/owner wallet**.
 
 | Missing piece | Why an app/game needs it | How to add it |
 |---|---|---|
@@ -73,3 +74,7 @@ from your supply wallet** (they cannot create new tokens).
 
 **Decide before deploying:** anything that must live *inside* the token (permit, tax, anti-bot, pause)
 cannot be added later — the token code is permanent once deployed.
+
+**Mint risk:** unlimited owner mint is flagged by scanners (BscScan, Token Sniffer, GoPlus) and
+buyers. Protect the owner wallet with a multisig, and consider `renounceOwnership()` or a supply cap
+when you no longer need to mint.

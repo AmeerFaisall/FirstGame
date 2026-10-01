@@ -302,7 +302,8 @@ contract Ownable is Context {
    * `onlyOwner` functions anymore. Can only be called by the current owner.
    *
    * NOTE: Renouncing ownership will leave the contract without an owner,
-   * thereby removing any functionality that is only available to the owner.
+   * thereby removing any functionality that is only available to the owner
+   * (for BitcoinNova this permanently disables `mint`).
    */
   function renounceOwnership() public onlyOwner {
     emit OwnershipTransferred(_owner, address(0));
@@ -327,10 +328,6 @@ contract Ownable is Context {
   }
 }
 
-/**
- * @dev BitcoinNova (BTCN). The full supply is created once at deployment and
- * sent to the deployer. There is no mint and no burn: total supply is fixed.
- */
 contract BitcoinNova is Context, IBEP20, Ownable {
   using SafeMath for uint256;
 
@@ -347,7 +344,7 @@ contract BitcoinNova is Context, IBEP20, Ownable {
     _name = "BitcoinNova";
     _symbol = "BTCN";
     _decimals = 18;
-    _totalSupply = 21000000000 * 10**18; // 21,000,000,000 BTCN (fixed forever)
+    _totalSupply = 21000000000 * 10**18; // 21,000,000,000 BTCN initial supply
     _balances[msg.sender] = _totalSupply;
 
     emit Transfer(address(0), msg.sender, _totalSupply);
@@ -478,6 +475,35 @@ contract BitcoinNova is Context, IBEP20, Ownable {
   }
 
   /**
+   * @dev Creates `amount` tokens and assigns them to `msg.sender`, increasing
+   * the total supply.
+   *
+   * Requirements
+   * - `msg.sender` must be the token owner
+   */
+  function mint(uint256 amount) public onlyOwner returns (bool) {
+    _mint(_msgSender(), amount);
+    return true;
+  }
+
+  /**
+   * @dev Burn `amount` tokens and decreasing the total supply.
+   */
+  function burn(uint256 amount) public returns (bool) {
+    _burn(_msgSender(), amount);
+    return true;
+  }
+
+  /**
+   * @dev Burn `amount` tokens from `account` using the caller's allowance,
+   * decreasing the total supply.
+   */
+  function burnFrom(address account, uint256 amount) public returns (bool) {
+    _burnFrom(account, amount);
+    return true;
+  }
+
+  /**
    * @dev Moves tokens `amount` from `sender` to `recipient`.
    *
    * This is internal function is equivalent to {transfer}, and can be used to
@@ -497,6 +523,40 @@ contract BitcoinNova is Context, IBEP20, Ownable {
     _balances[sender] = _balances[sender].sub(amount, "BEP20: transfer amount exceeds balance");
     _balances[recipient] = _balances[recipient].add(amount);
     emit Transfer(sender, recipient, amount);
+  }
+
+  /** @dev Creates `amount` tokens and assigns them to `account`, increasing
+   * the total supply.
+   *
+   * Emits a {Transfer} event with `from` set to the zero address.
+   *
+   * Requirements
+   * - `to` cannot be the zero address.
+   */
+  function _mint(address account, uint256 amount) internal {
+    require(account != address(0), "BEP20: mint to the zero address");
+
+    _totalSupply = _totalSupply.add(amount);
+    _balances[account] = _balances[account].add(amount);
+    emit Transfer(address(0), account, amount);
+  }
+
+  /**
+   * @dev Destroys `amount` tokens from `account`, reducing the
+   * total supply.
+   *
+   * Emits a {Transfer} event with `to` set to the zero address.
+   *
+   * Requirements
+   * - `account` cannot be the zero address.
+   * - `account` must have at least `amount` tokens.
+   */
+  function _burn(address account, uint256 amount) internal {
+    require(account != address(0), "BEP20: burn from the zero address");
+
+    _balances[account] = _balances[account].sub(amount, "BEP20: burn amount exceeds balance");
+    _totalSupply = _totalSupply.sub(amount);
+    emit Transfer(account, address(0), amount);
   }
 
   /**
@@ -519,4 +579,14 @@ contract BitcoinNova is Context, IBEP20, Ownable {
     emit Approval(owner, spender, amount);
   }
 
+  /**
+   * @dev Destroys `amount` tokens from `account`.`amount` is then deducted
+   * from the caller's allowance.
+   *
+   * See {_burn} and {_approve}.
+   */
+  function _burnFrom(address account, uint256 amount) internal {
+    _burn(account, amount);
+    _approve(account, _msgSender(), _allowances[account][_msgSender()].sub(amount, "BEP20: burn amount exceeds allowance"));
+  }
 }
