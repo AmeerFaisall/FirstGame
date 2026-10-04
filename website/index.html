@@ -254,13 +254,28 @@
                 } catch (switchError) {
                     // Continue even if the wallet can't switch; most wallets still add the token.
                 }
-                const added = await window.ethereum.request({
-                    method: 'wallet_watchAsset',
-                    params: { type: 'ERC20', options: BTCN }
-                });
+                let added;
+                try {
+                    added = await window.ethereum.request({
+                        method: 'wallet_watchAsset',
+                        params: { type: 'ERC20', options: BTCN }
+                    });
+                } catch (firstError) {
+                    if (firstError && firstError.code === 4001) throw firstError;
+                    // Some wallets only accept the older array format.
+                    added = await window.ethereum.request({
+                        method: 'wallet_watchAsset',
+                        params: [{ type: 'ERC20', options: BTCN }]
+                    });
+                }
                 showBtcnMessage(added ? 'BTCN was added to your wallet.' : 'BTCN was not added.');
             } catch (error) {
-                showBtcnMessage('Could not add BTCN automatically. Add it manually with the contract address.');
+                if (error && error.code === 4001) {
+                    showBtcnMessage('You cancelled the request in your wallet.');
+                    return;
+                }
+                const reason = (error && error.message) ? ' (' + error.message + ')' : '';
+                showBtcnMessage('This wallet could not add BTCN automatically' + reason + '. Try the MetaMask app browser, or add it manually with the contract address.');
             }
         }
     </script>
