@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>BitcoinNova - Your Mining Space</title>
+    <meta name="description" content="BitcoinNova is a cloud mining app. BTCN is the BEP-20 utility token of the BitcoinNova app on BNB Smart Chain.">
+    <style>
+        .btcn-section { margin-top: 3rem; }
+        .btcn-section h2 { font-family: 'Manrope', sans-serif; font-size: 1.6rem; font-weight: 900; margin: 0 0 0.5rem; }
+        .btcn-section .btcn-lead { opacity: 0.85; margin: 0 0 1.5rem; max-width: 720px; line-height: 1.6; }
+        .btcn-card { border-radius: 16px; padding: 1.25rem; border: 1px solid rgba(127,127,127,0.25); }
+        .btcn-row { display: flex; flex-wrap: wrap; gap: 0.75rem 1.5rem; margin-bottom: 1rem; }
+        .btcn-row div { min-width: 120px; }
+        .btcn-label { font-size: 0.8rem; opacity: 0.7; text-transform: uppercase; letter-spacing: 0.05em; }
+        .btcn-value { font-weight: 700; }
+        .btcn-address { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin: 0.25rem 0 1.25rem; }
+        .btcn-address code { font-size: 0.85rem; word-break: break-all; padding: 0.5rem 0.75rem; border-radius: 10px; background: rgba(127,127,127,0.15); }
+        .btcn-copy { cursor: pointer; border: 0; border-radius: 10px; padding: 0.5rem 0.9rem; font-weight: 700; background: rgba(127,127,127,0.25); color: inherit; }
+        .btcn-links { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+        .btcn-note { font-size: 0.85rem; opacity: 0.75; margin-top: 1.25rem; line-height: 1.6; max-width: 720px; }
+        .btcn-msg { font-size: 0.85rem; margin-top: 0.75rem; min-height: 1.2em; }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="logo.png?v=20260913">
+    <link rel="stylesheet" href="nova.css?v=20260911-4">
+    <script src="nova-ui.js?v=20260911-4"></script>
+<link rel="stylesheet" href="nova-mobile.css?v=20260913-3">
+<script src="nova-mobile.js?v=20260913-3"></script>
+</head>
+<body class="nova-page nova-index">
+
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <header>
+        <div class="logo-container">
+            <div class="logo-circle"><img src="logo.png?v=20260913" alt="" width="1200" height="1200"></div>
+            <div class="logo-text">Bitcoin<span>Nova</span></div>
+        </div>
+        <div style="display:flex; align-items:center; gap:1rem;">
+            <button id="theme-toggle" class="theme-toggle-btn" title="Toggle Theme" onclick="toggleTheme()">
+                <i class="fa-solid fa-moon" id="theme-toggle-icon"></i>
+            </button>
+            <a href="login.html" class="nav-launch-btn">Sign In</a>
+        </div>
+    </header>
+
+    <main>
+      <div class="nova-landing-grid">
+       <div>
+        <div class="badge">
+            <span class="badge-dot"></span>
+            BITCOIN NOVA · WEB PORTAL
+        </div>
+
+        <h1 class="landing-title">
+            Your mining space.<br>
+            <span class="green">More possibilities.</span>
+        </h1>
+
+        <p class="landing-subtitle">
+            Your balance, mining power, and next upgrade. Bring it all together with your BitcoinNova account.
+        </p>
+
+        <div class="landing-cta">
+            <a href="login.html" class="btn-primary-landing">
+                <i class="fa-solid fa-bolt"></i>
+                Launch Miner
+            </a>
+            <a href="buy.html" class="btn-secondary-landing">
+                <i class="fa-solid fa-chart-line"></i>
+                View Upgrade Plans
+            </a>
+        </div>
+
+       </div>
+       <div class="nova-landing-art" aria-hidden="true">
+         <div class="nova-core"><span class="nova-core-ring"></span><span class="nova-core-ring"></span><span class="nova-core-ring"></span><span class="nova-core-mark"><img src="logo.png?v=20260913" alt="" width="1200" height="1200"></span></div>
+         <div class="nova-core-caption"><span>YOUR MINING POWER</span><strong>GH/s</strong></div>
+       </div>
+      </div>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-val" style="font-family:'Manrope'; font-size:1.8rem; font-weight:900; color:var(--accent-green); margin-bottom:0.3rem;">50+</div>
+                <div class="stat-label">GH/s Starting Power</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-val" style="font-family:'Manrope'; font-size:1.8rem; font-weight:900; color:var(--accent-green); margin-bottom:0.3rem;">20%</div>
+                <div class="stat-label">Web Discount</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-val" style="font-family:'Manrope'; font-size:1.8rem; font-weight:900; color:var(--accent-green); margin-bottom:0.3rem;">24/7</div>
+                <div class="stat-label">Mining Overview</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-val" style="font-family:'Manrope'; font-size:1.8rem; font-weight:900; color:var(--accent-green); margin-bottom:0.3rem;">BTC</div>
+                <div class="stat-label">Balance Unit</div>
+            </div>
+        </div>
+
+        <div class="features-row">
+            <div class="feature-item">
+                <div class="feature-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                <div>
+                    <div class="feature-title">One account. Connected.</div>
+                    <div class="feature-desc">Sign in with Google to access your BitcoinNova account.</div>
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon"><i class="fa-solid fa-microchip"></i></div>
+                <div>
+                    <div class="feature-title">Choose your power</div>
+                    <div class="feature-desc">Choose a hashrate amount and review the price before payment.</div>
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon"><i class="fa-solid fa-percent"></i></div>
+                <div>
+                    <div class="feature-title">Web upgrade pricing</div>
+                    <div class="feature-desc">Buy hashrate here at a 20% discount — only available on this website.</div>
+                </div>
+            </div>
+        </div>
+
+        <section class="btcn-section" id="btcn">
+            <h2>BTCN Token</h2>
+            <p class="btcn-lead">
+                BTCN is the BEP-20 utility token of the BitcoinNova app on BNB Smart Chain.
+                In the app, users earn BTCN or BTC rewards through cloud mining plans and can add liquidity to supported token pairs.
+            </p>
+
+            <div class="btcn-card">
+                <div class="btcn-row">
+                    <div><div class="btcn-label">Name</div><div class="btcn-value">BitcoinNova</div></div>
+                    <div><div class="btcn-label">Symbol</div><div class="btcn-value">BTCN</div></div>
+                    <div><div class="btcn-label">Network</div><div class="btcn-value">BNB Smart Chain (BEP-20)</div></div>
+                    <div><div class="btcn-label">Decimals</div><div class="btcn-value">18</div></div>
+                </div>
+
+                <div class="btcn-label">Contract address</div>
+                <div class="btcn-address">
+                    <code id="btcn-address">0xa3237c2825C4b7639f07FA732d2bE79e0C585Dc8</code>
+                    <button class="btcn-copy" type="button" onclick="copyBtcnAddress()"><i class="fa-regular fa-copy"></i> Copy</button>
+                </div>
+
+                <div class="btcn-links">
+                    <button class="btn-primary-landing" type="button" onclick="addBtcnToWallet()">
+                        <i class="fa-solid fa-wallet"></i>
+                        Add BTCN to Wallet
+                    </button>
+                    <a class="btn-secondary-landing" href="https://bscscan.com/token/0xa3237c2825C4b7639f07FA732d2bE79e0C585Dc8" target="_blank" rel="noopener">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        View on BscScan
+                    </a>
+                    <a class="btn-secondary-landing" href="https://pancakeswap.finance/swap?outputCurrency=0xa3237c2825C4b7639f07FA732d2bE79e0C585Dc8&amp;chain=bsc" target="_blank" rel="noopener">
+                        <i class="fa-solid fa-arrow-right-arrow-left"></i>
+                        Trade on PancakeSwap
+                    </a>
+                    <a class="btn-secondary-landing" href="https://play.google.com/store/apps/details?id=com.GreatAnimationStudio.BitcoinNova" target="_blank" rel="noopener">
+                        <i class="fa-brands fa-google-play"></i>
+                        Get the App
+                    </a>
+                </div>
+                <div class="btcn-msg" id="btcn-msg" role="status"></div>
+            </div>
+
+            <p class="btcn-note">
+                Mining rewards depend on your hashrate and on network conditions, and they can change over time. Rewards are not guaranteed.
+                Always check the contract address above before buying or adding BTCN.
+                BitcoinNova is an independent project and is not affiliated with Bitcoin (BTC).
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        &copy; 2026 BitcoinNova. All rights reserved.
+        <br>
+        <!-- Change this to your real @bitcoinnova.net email if it is different -->
+        Contact: <a href="mailto:support@bitcoinnova.net">support@bitcoinnova.net</a>
+    </footer>
+
+    <script>
+        function applyStoredTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const toggleIcon = document.getElementById('theme-toggle-icon');
+            if (savedTheme === 'light') {
+                document.body.classList.add('light-theme');
+                if (toggleIcon) {
+                    toggleIcon.classList.remove('fa-moon');
+                    toggleIcon.classList.add('fa-sun');
+                }
+            } else {
+                document.body.classList.remove('light-theme');
+                if (toggleIcon) {
+                    toggleIcon.classList.remove('fa-sun');
+                    toggleIcon.classList.add('fa-moon');
+                }
+            }
+        }
+
+        function toggleTheme() {
+            const toggleIcon = document.getElementById('theme-toggle-icon');
+            if (document.body.classList.contains('light-theme')) {
+                document.body.classList.remove('light-theme');
+                localStorage.setItem('theme', 'dark');
+                if (toggleIcon) {
+                    toggleIcon.classList.remove('fa-sun');
+                    toggleIcon.classList.add('fa-moon');
+                }
+            } else {
+                document.body.classList.add('light-theme');
+                localStorage.setItem('theme', 'light');
+                if (toggleIcon) {
+                    toggleIcon.classList.remove('fa-moon');
+                    toggleIcon.classList.add('fa-sun');
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', applyStoredTheme);
+
+        const BTCN = {
+            address: '0xa3237c2825C4b7639f07FA732d2bE79e0C585Dc8',
+            symbol: 'BTCN',
+            decimals: 18,
+            image: 'https://bitcoinnova.net/logo.png'
+        };
+
+        function showBtcnMessage(text) {
+            const el = document.getElementById('btcn-msg');
+            if (el) el.textContent = text;
+        }
+
+        function copyBtcnAddress() {
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(BTCN.address)
+                    .then(() => showBtcnMessage('Contract address copied.'))
+                    .catch(() => showBtcnMessage('Could not copy. Please copy the address manually.'));
+            } else {
+                showBtcnMessage('Could not copy. Please copy the address manually.');
+            }
+        }
+
+        async function addBtcnToWallet() {
+            if (!window.ethereum) {
+                showBtcnMessage('No wallet found. Open this page in your wallet app browser (MetaMask, Trust Wallet), or add the token manually with the contract address.');
+                return;
+            }
+            try {
+                try {
+                    await window.ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: '0x38' }] });
+                } catch (switchError) {
+                    // Continue even if the wallet can't switch; most wallets still add the token.
+                }
+                const added = await window.ethereum.request({
+                    method: 'wallet_watchAsset',
+                    params: { type: 'ERC20', options: BTCN }
+                });
+                showBtcnMessage(added ? 'BTCN was added to your wallet.' : 'BTCN was not added.');
+            } catch (error) {
+                showBtcnMessage('Could not add BTCN automatically. Add it manually with the contract address.');
+            }
+        }
+    </script>
+</body>
+</html>
